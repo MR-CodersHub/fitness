@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spartan Edge | Elite Fitness & Gym</title>
+    <link rel="icon" type="image/jpeg" href="Asset/box img.jpg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">SPARTAN<span>EDGE</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="home2.html" class="nav-link">Home 2</a></li>
+                <li><a href="page/about.html" class="nav-link">About</a></li>
+                <li><a href="page/services.html" class="nav-link">Services</a></li>
+                <li><a href="page/blog.html" class="nav-link">Blog</a></li>
+                <li><a href="page/contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="dropdown">
+                    <a href="#" class="nav-link" id="user-dropdown-btn" title="Login"><i class="fas fa-user"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="page/login.html" class="dropdown-item">Login</a>
+                        <a href="page/signup.html" class="dropdown-item">Sign Up</a>
+                    </div>
+                </div>
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" style="background-image: url('Asset/hero.png');">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>ENDURANCE • DISCIPLINE • STRENGTH</h1>
+            <p>Unlock your true potential with elite training programs designed for the modern warrior.</p>
+            <div class="hero-btns">
+                <a href="page/booking.html" class="btn btn-primary">Join Now</a>
+                <a href="page/services.html" class="btn btn-outline">View Classes</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Why Choose Spartan Edge?</h2>
+                <p style="max-width: 600px; margin: 0 auto; color: var(--text-gray);">We are not just a gym. We are a
+                    community of athletes dedicated to pushing limits and breaking barriers.</p>
+            </div>
+            <div class="grid-3">
+                <div class="card text-center animate-reveal" style="transition-delay: 0.1s;">
+                    <i class="fas fa-dumbbell card-icon"></i>
+                    <h3>Elite Equipment</h3>
+                    <p>Train with state-of-the-art machinery and free weights designed for professional athletes.</p>
+                </div>
+                <div class="card text-center animate-reveal" style="transition-delay: 0.2s;">
+                    <i class="fas fa-users card-icon"></i>
+                    <h3>Expert Trainers</h3>
+                    <p>Our certified coaches will guide you through every rep, ensuring safety and maximum results.</p>
+                </div>
+                <div class="card text-center animate-reveal" style="transition-delay: 0.3s;">
+                    <i class="fas fa-heartbeat card-icon"></i>
+                    <h3>Holistic Approach</h3>
+                    <p>We focus on strength, endurance, nutrition, and recovery for a complete fitness lifestyle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Classes -->
+    <section class="classes-section bg-darker">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Popular Classes</h2>
+            </div>
+            <div class="grid-3">
+                <div class="class-card animate-reveal" style="transition-delay: 0.1s;">
+                    <div class="class-img-wrapper">
+                        <div class="class-img" style="background-image: url('Asset/class-box.png');"></div>
+                    </div>
+                    <div class="class-content">
+                        <h3>Boxing</h3>
+                        <p>High-intensity boxing sessions to build speed, power, and agility.</p>
+                        <a href="page/service-details.html" class="text-primary" style="font-weight: 600;">Explore <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="class-card animate-reveal" style="transition-delay: 0.2s;">
+                    <div class="class-img-wrapper">
+                        <div class="class-img" style="background-image: url('Asset/class-crossfit.png');"></div>
+                    </div>
+                    <div class="class-content">
+                        <h3>CrossFit</h3>
+                        <p>Functional movements performed at high intensity for total body conditioning.</p>
+                        <a href="page/crossfit-details.html" class="text-primary" style="font-weight: 600;">Explore <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="class-card animate-reveal" style="transition-delay: 0.3s;">
+                    <div class="class-img-wrapper">
+                        <div class="class-img" style="background-image: url('Asset/class-yoga.png');"></div>
+                    </div>
+                    <div class="class-content">
+                        <h3>Yoga & Recovery</h3>
+                        <p>Restore balance and flexibility with our guided yoga and meditation classes.</p>
+                        <a href="page/yoga-details.html" class="text-primary" style="font-weight: 600;">Explore <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video / Motivation Section -->
+    <section class="section-bg" style="background-image: url('Asset/hero.png'); padding: 100px 0;">
+        <div class="overlay" style="background: linear-gradient(rgba(211, 47, 47, 0.9), rgba(17, 17, 17, 0.95));"></div>
+        <div class="container relative-z2 text-center">
+            <h2 style="font-size: 4rem; margin-bottom: 20px;">NO PAIN. NO GAIN.</h2>
+            <p style="font-size: 1.5rem; margin-bottom: 40px; color: #fff;">Your only competition is the person you were
+                yesterday.</p>
+            <div class="video-btn-wrapper">
+                <a href="#" style="font-size: 5rem; color: #fff;"><i class="fas fa-play-circle"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BMI Calculator -->
+    <section class="bmi-section">
+        <div class="container">
+            <div class="bmi-container">
+                <div class="bmi-content">
+                    <h2 class="section-title">Calculate Your BMI</h2>
+                    <p style="margin-bottom: 20px;">Find out your Body Mass Index to better understand your fitness
+                        starting point.</p>
+                    <div id="bmi-result"
+                        style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color); height: 30px;"></div>
+                </div>
+                <div class="bmi-form">
+                    <form id="bmiForm">
+                        <div class="form-group">
+                            <input type="number" id="weight" class="form-control" placeholder="Weight (kg)" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="height" class="form-control" placeholder="Height (cm)" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Calculate Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Success Highlights -->
+    <section>
+        <div class="container text-center">
+            <h2 class="section-title">Client Success</h2>
+            <div class="grid-3">
+                <div class="card" style="border-top: 3px solid var(--primary-color);">
+                    <p style="font-style: italic; font-size: 1.1rem;">"The discipline I learned here spilled over into
+                        my business. I'm faster, sharper, and mentally unbreakable."</p>
+                    <div style="margin-top: 20px; color: var(--primary-color);">— High-Performance Executive</div>
+                </div>
+                <div class="card" style="border-top: 3px solid var(--primary-color);">
+                    <p style="font-style: italic; font-size: 1.1rem;">"Spartan Edge took me from average to elite. The
+                        community doesn't let you quit when it gets hard."</p>
+                    <div style="margin-top: 20px; color: var(--primary-color);">— Competitive Athlete</div>
+                </div>
+                <div class="card" style="border-top: 3px solid var(--primary-color);">
+                    <p style="font-style: italic; font-size: 1.1rem;">"Recovering from a major injury was tough, but the
+                        coaching and science-backed recovery here saved my career."</p>
+                    <div style="margin-top: 20px; color: var(--primary-color);">— Professional Runner</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Strip -->
+    <section class="cta-strip" style="background-color: var(--primary-color); padding: 50px 0; text-align: center;">
+        <div class="container">
+            <h2 style="color: #fff; margin-bottom: 20px;">Ready to Start Your Journey?</h2>
+            <a href="page/signup.html" class="btn btn-outline">Sign Up
+                Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">SPARTAN<span>EDGE</span></a>
+                    <p style="margin-top: 20px;">We are dedicated to helping you achieve your fitness goals with the
+                        best equipment and trainers.</p>
+                    <div style="margin-top: 20px; font-size: 1.2rem;">
+                        <a href="#" style="margin-right: 15px;"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" style="margin-right: 15px;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="margin-right: 15px;"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="home2.html">Home 2</a></li>
+                        <li><a href="page/about.html">About</a></li>
+                        <li><a href="page/services.html">Services</a></li>
+                        <li><a href="page/blog.html">Blog</a></li>
+                        <li><a href="page/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="page/pricing.html">Pricing Plans</a></li>
+                        <li><a href="page/booking.html">Book a Class</a></li>
+                        <li><a href="page/login.html">Login</a></li>
+                        <li><a href="page/signup.html">Join Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Fitness Blvd, City, Country</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@spartanedge.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Spartan Edge. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spartan Edge | Home 2 - Premium Training</title>
+    <link rel="icon" type="image/jpeg" href="Asset/box img.jpg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .navbar {
+            z-index: 2000;
+            /* Ensure it's above everything */
+            background-color: rgba(5, 5, 5, 0.9);
+            /* Slightly more solid for better contrast */
+        }
+
+        .hero {
+            padding-top: 100px;
+            /* Space for fixed navbar */
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 4.5rem !important;
+                /* Scale down inline 6rem */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.5rem !important;
+            }
+
+            .hero {
+                padding-top: 80px;
+                height: auto;
+                min-height: 100vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.8rem !important;
+            }
+
+            .hero-content {
+                padding: 40px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">SPARTAN<span>EDGE</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="home2.html" class="nav-link active">Home 2</a></li>
+                <li><a href="page/about.html" class="nav-link">About</a></li>
+                <li><a href="page/services.html" class="nav-link">Services</a></li>
+                <li><a href="page/blog.html" class="nav-link">Blog</a></li>
+                <li><a href="page/contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="dropdown">
+                    <a href="#" class="nav-link" id="user-dropdown-btn" title="Login"><i class="fas fa-user"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="page/login.html" class="dropdown-item">Login</a>
+                        <a href="page/signup.html" class="dropdown-item">Sign Up</a>
+                    </div>
+                </div>
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Alternative Hero Section -->
+    <header class="hero" style="background-image: url('Asset/home2-hero.png');">
+        <div class="hero-overlay" style="background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.4));">
+        </div>
+        <div class="container relative-z2" style="text-align: left; margin-left: 0;">
+            <div class="hero-content animate-reveal active" style="max-width: 700px;">
+                <h1 style="font-size: 6rem; line-height: 0.9; margin-bottom: 30px;">FORGE YOUR<br><span
+                        class="text-primary">LEGACY</span></h1>
+                <p
+                    style="font-size: 1.2rem; color: #fff; line-height: 1.6; margin-bottom: 40px; border-left: 4px solid var(--primary-color); padding-left: 20px;">
+                    Experience the next evolution of fitness. Our premium facility combines cutting-edge science with
+                    the warrior spirit to deliver results that last a lifetime.
+                </p>
+                <div class="hero-btns" style="justify-content: flex-start;">
+                    <a href="page/booking.html" class="btn btn-primary" style="padding: 15px 40px;">Get Started</a>
+                    <a href="#features" class="btn btn-outline">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Feature Cards Section -->
+    <section id="features" class="bg-darker">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Why Spartan Edge?</h2>
+                <p style="color: var(--text-gray); margin-top: 10px;">The foundation of excellence is built on three
+                    pillars.</p>
+            </div>
+            <div class="grid-3">
+                <div class="card animate-reveal">
+                    <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Warrior Mentality</h3>
+                    <p>We don't just train bodies; we forge minds. Our environment is designed to push you past your
+                        perceived limits.</p>
+                </div>
+                <div class="card animate-reveal" style="transition-delay: 0.2s;">
+                    <div class="card-icon"><i class="fas fa-microchip"></i></div>
+                    <h3>Precision Tech</h3>
+                    <p>Utilize advanced biometric tracking and state-of-the-art equipment to optimize every single rep
+                        and recovery phase.</p>
+                </div>
+                <div class="card animate-reveal" style="transition-delay: 0.4s;">
+                    <div class="card-icon"><i class="fas fa-medal"></i></div>
+                    <h3>Elite Community</h3>
+                    <p>Join a curated group of dedicated individuals. Surround yourself with success and hold yourself
+                        to a higher standard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Overview Grid -->
+    <section>
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Specialized Programs</h2>
+            </div>
+            <div class="programs-overview">
+                <div class="program-box animate-reveal">
+                    <i class="fas fa-dumbbell"></i>
+                    <h3>Strength Training</h3>
+                    <p>Master the fundamental lifts under expert supervision. Build functional power and dense muscle.
+                    </p>
+                    <a href="page/services.html" class="text-primary">View Details <i
+                            class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="program-box animate-reveal" style="transition-delay: 0.1s;">
+                    <i class="fas fa-bolt"></i>
+                    <h3>HIIT Protocol</h3>
+                    <p>Maximize caloric burn and metabolic rate with explosive intervals designed for efficiency.</p>
+                    <a href="page/services.html" class="text-primary">View Details <i
+                            class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="program-box animate-reveal" style="transition-delay: 0.2s;">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>Personal Coaching</h3>
+                    <p>One-on-one sessions tailored specifically to your unique anatomy and performance goals.</p>
+                    <a href="page/services.html" class="text-primary">View Details <i
+                            class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="program-box animate-reveal" style="transition-delay: 0.3s;">
+                    <i class="fas fa-apple-alt"></i>
+                    <h3>Nutrition Plans</h3>
+                    <p>Fuel your transformation with custom meal protocols calculated for your specific activity level.
+                    </p>
+                    <a href="page/services.html" class="text-primary">View Details <i
+                            class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trainer Spotlight -->
+    <section class="bg-darker">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Trainer Spotlight</h2>
+                <p style="color: var(--text-gray);">Led by world-class athletic experts.</p>
+            </div>
+            <div class="trainer-grid">
+                <div class="trainer-card animate-reveal">
+                    <div class="trainer-img" style="background-image: url('Asset/class-box.png');"></div>
+                    <div class="trainer-info">
+                        <h4>Marcus Aurelius</h4>
+                        <p>Head of Strength</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="trainer-card animate-reveal" style="transition-delay: 0.2s;">
+                    <div class="trainer-img" style="background-image: url('Asset/class-crossfit.png');"></div>
+                    <div class="trainer-info">
+                        <h4>Diana Prince</h4>
+                        <p>Endurance Lead</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="trainer-card animate-reveal" style="transition-delay: 0.4s;">
+                    <div class="trainer-img" style="background-image: url('Asset/class-yoga.png');"></div>
+                    <div class="trainer-info">
+                        <h4>Leonidas King</h4>
+                        <p>Combat Specialist</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Plans -->
+    <section>
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Membership Plans</h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card animate-reveal">
+                    <h3>Recruit</h3>
+                    <div class="price">$49<span>/mo</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Standard Equipment Access</li>
+                        <li><i class="fas fa-check"></i> 2 Group Classes / Month</li>
+                        <li><i class="fas fa-check"></i> Mobile App Access</li>
+                        <li style="opacity: 0.3;"><i class="fas fa-times"></i> Priority Booking</li>
+                    </ul>
+                    <a href="page/signup.html" class="btn btn-outline" style="width: 100%;">Join Now</a>
+                </div>
+                <div class="pricing-card popular animate-reveal">
+                    <div class="badge-popular">MOST POPULAR</div>
+                    <h3>Warrior</h3>
+                    <div class="price">$89<span>/mo</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Full Facility Access</li>
+                        <li><i class="fas fa-check"></i> Unlimited Classes</li>
+                        <li><i class="fas fa-check"></i> Biometric Analysis</li>
+                        <li><i class="fas fa-check"></i> Priority Booking</li>
+                    </ul>
+                    <a href="page/signup.html" class="btn btn-primary" style="width: 100%;">Get Special Deal</a>
+                </div>
+                <div class="pricing-card animate-reveal">
+                    <h3>Elite</h3>
+                    <div class="price">$149<span>/mo</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 24/7 VIP Access</li>
+                        <li><i class="fas fa-check"></i> Dedicated Coach</li>
+                        <li><i class="fas fa-check"></i> Nutrition Catering</li>
+                        <li><i class="fas fa-check"></i> Recovery Suite</li>
+                    </ul>
+                    <a href="page/signup.html" class="btn btn-outline" style="width: 100%;">Apply for Elite</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Carousel -->
+    <section class="bg-darker">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Warriors' Voice</h2>
+            </div>
+            <div class="testimonial-carousel">
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="testimonial-text">"The Precision Tech at Spartan Edge changed everything. I finally
+                        stopped guessing and started growing. Best investment of my life."</p>
+                    <div class="user-meta">
+                        <div class="user-img"></div>
+                        <div>
+                            <h4 style="margin:0;">Alex R.</h4>
+                            <small style="color:var(--text-gray);">Tech CEO</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="testimonial-text">"I've been to many gyms, but the community here is different. We hold
+                        each other accountable. It's not just a gym, it's a brotherhood."</p>
+                    <div class="user-meta">
+                        <div class="user-img"></div>
+                        <div>
+                            <h4 style="margin:0;">Sarah M.</h4>
+                            <small style="color:var(--text-gray);">Pro Athlete</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="testimonial-text">"Marcus is hands down the best strength coach I've ever worked with. My
+                        squat went up 50kg in three months with zero pain."</p>
+                    <div class="user-meta">
+                        <div class="user-img"></div>
+                        <div>
+                            <h4 style="margin:0;">John D.</h4>
+                            <small style="color:var(--text-gray);">Software Engineer</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strong CTA Banner -->
+    <section class="cta-banner"
+        style="position: relative; padding: 120px 0; overflow: hidden; background-image: url('Asset/hero.png'); background-attachment: fixed; background-size: cover;">
+        <div class="overlay" style="background: linear-gradient(135deg, rgba(211, 47, 47, 0.95), rgba(0, 0, 0, 0.95));">
+        </div>
+        <div class="container relative-z2 text-center">
+            <h2 style="font-size: 4.5rem; color: #fff; margin-bottom: 20px;">READY TO RULE YOUR ARENA?</h2>
+            <p
+                style="font-size: 1.5rem; color: rgba(255,255,255,0.8); margin-bottom: 40px; max-width: 800px; margin-inline: auto;">
+                Don't settle for average. Join the elite ranks of Spartan Edge and transform into the best version of
+                yourself.
+            </p>
+            <a href="page/signup.html" class="btn btn-primary"
+                style="padding: 20px 60px; font-size: 1.5rem; background: #fff; color: var(--primary-color);">START YOUR
+                TRANSFORMATION</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">SPARTAN<span>EDGE</span></a>
+                    <p style="margin-top: 20px;">Forging the elite warriors of tomorrow through science, discipline, and
+                        community.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="home2.html">Home 2</a></li>
+                        <li><a href="page/about.html">About</a></li>
+                        <li><a href="page/services.html">Services</a></li>
+                        <li><a href="page/blog.html">Blog</a></li>
+                        <li><a href="page/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" id="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="page/pricing.html">Pricing Plans</a></li>
+                        <li><a href="page/booking.html">Book a Class</a></li>
+                        <li><a href="page/login.html">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Fitness Blvd, City, Country</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@spartanedge.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Spartan Edge. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

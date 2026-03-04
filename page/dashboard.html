@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SPARTAN EDGE</title>
+    <link rel="icon" type="image/jpeg" href="../Asset/box img.jpg">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .dashboard-main {
+            padding-top: 100px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a1a 100%);
+        }
+
+        .user-welcome h1 span {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body class="inner-body">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo">SPARTAN<span>EDGE</span></a>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+                <li><a href="booking.html" class="nav-link">Book Session</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="dropdown">
+                    <a href="#" class="nav-link" id="user-dropdown-btn" title="Profile"><i
+                            class="fas fa-user-circle"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item">Dashboard</a>
+                        <a href="../index.html" class="dropdown-item"
+                            onclick="localStorage.removeItem('spartan_user')">Logout</a>
+                    </div>
+                </div>
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-main">
+        <div class="container">
+            <div class="user-welcome animate-fade-down" style="margin-bottom: 40px;">
+                <h1>Welcome back, <span id="userName">Warrior</span>!</h1>
+                <p style="color: var(--text-gray);">Here's your training progress for today.</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="dashboard-grid">
+                <div class="stat-card animate-scale" style="animation-delay: 0.1s;">
+                    <div class="stat-value" id="stepCount">8,432</div>
+                    <div class="stat-label">Steps Today</div>
+                    <div style="width: 100%; height: 4px; background: #333; margin-top: 15px; border-radius: 2px;">
+                        <div style="width: 84%; height: 100%; background: var(--primary-color); border-radius: 2px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card animate-scale" style="animation-delay: 0.2s;">
+                    <div class="stat-value" id="calorieCount">450</div>
+                    <div class="stat-label">Calories Burned</div>
+                </div>
+                <div class="stat-card animate-scale" style="animation-delay: 0.3s;">
+                    <div class="stat-value">72</div>
+                    <div class="stat-label">Active Minutes</div>
+                </div>
+                <div class="stat-card animate-scale" style="animation-delay: 0.4s;">
+                    <div class="stat-value">128</div>
+                    <div class="stat-label">Avg Heart Rate</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-bottom: 40px;">
+                <!-- Analytics Chart -->
+                <div class="chart-container animate-fade-up">
+                    <h3 style="margin-bottom: 20px;">Workout Frequency</h3>
+                    <canvas id="workoutChart" height="200"></canvas>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="stat-card animate-fade-up" style="background: var(--bg-card);">
+                    <h3 style="margin-bottom: 20px;">Recent Activity</h3>
+                    <div class="activity-list" id="activityList">
+                        <!-- Dynamic items -->
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-check"></i></div>
+                            <div class="activity-info">
+                                <h4>System Online</h4>
+                                <p>Welcome to Spartan Edge</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Section -->
+            <div class="chart-container animate-fade-up">
+                <h3 style="margin-bottom: 20px;">Your Upcoming Sessions</h3>
+                <div id="bookingList">
+                    <p style="color: var(--text-gray); font-style: italic;">No sessions booked yet. <a
+                            href="booking.html" style="color: var(--primary-color);">Book one now!</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = JSON.parse(localStorage.getItem('spartan_user') || '{"name": "Warrior"}');
+            document.getElementById('userName').textContent = user.name;
+
+            // Load Activities
+            const activities = JSON.parse(localStorage.getItem('spartan_activities') || '[]');
+            const activityList = document.getElementById('activityList');
+            if (activities.length > 0) {
+                activityList.innerHTML = activities.map(act => `
+                    <div class="activity-item">
+                        <div class="activity-icon"><i class="fas ${act.type === 'Booking' ? 'fa-calendar-alt' : 'fa-bolt'}"></i></div>
+                        <div class="activity-info">
+                            <h4>${act.type}</h4>
+                            <p>${act.message}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Load Bookings
+            const bookings = JSON.parse(localStorage.getItem('spartan_bookings') || '[]');
+            const bookingList = document.getElementById('bookingList');
+            if (bookings.length > 0) {
+                bookingList.innerHTML = `
+                    <div class="grid-3" style="margin-top:0;">
+                        ${bookings.map(b => `
+                            <div class="card" style="padding: 20px; border-left: 4px solid var(--primary-color);">
+                                <h4 style="color: var(--primary-color);">${b.program}</h4>
+                                <p style="font-size: 0.9rem; margin: 5px 0;"><i class="fas fa-calendar"></i> ${b.date}</p>
+                                <p style="font-size: 0.9rem;"><i class="fas fa-clock"></i> ${b.time}</p>
+                                <div style="margin-top: 10px; font-size: 0.8rem; text-transform: uppercase; color: #4CAF50;">Status: Confirmed</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            // Initialize Chart
+            const ctx = document.getElementById('workoutChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Calories Burned',
+                        data: [350, 480, 200, 600, 450, 800, 400],
+                        borderColor: '#D32F2F',
+                        backgroundColor: 'rgba(211, 47, 47, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#ccc' } },
+                        x: { grid: { display: false }, ticks: { color: '#ccc' } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Animated Counters
+            const animateValue = (id, start, end, duration) => {
+                const obj = document.getElementById(id);
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+
+            animateValue("stepCount", 0, 8432, 2000);
+            animateValue("calorieCount", 0, 450, 2000);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OUT OF BOUNDS | SPARTAN EDGE</title>
+    <link rel="icon" type="image/jpeg" href="../Asset/box img.jpg">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #000;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            perspective: 1000px;
+        }
+
+        .lost-container {
+            position: relative;
+            text-align: center;
+            z-index: 10;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            font-family: var(--font-heading);
+            font-size: 8rem;
+            color: #fff;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            animation: glitch-anim 4s infinite linear alternate-reverse;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--primary-color);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-2 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #0ff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(31px, 9999px, 94px, 0);
+                transform: skew(0.85deg);
+            }
+
+            5% {
+                clip: rect(70px, 9999px, 71px, 0);
+                transform: skew(0.35deg);
+            }
+
+            10% {
+                clip: rect(29px, 9999px, 83px, 0);
+                transform: skew(0.55deg);
+            }
+
+            /* ... more steps potentially but let's keep it concise ... */
+            100% {
+                clip: rect(67px, 9999px, 32px, 0);
+                transform: skew(0.15deg);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% {
+                clip: rect(10px, 9999px, 85px, 0);
+                transform: skew(0.2deg);
+            }
+
+            100% {
+                clip: rect(50px, 9999px, 15px, 0);
+                transform: skew(1deg);
+            }
+        }
+
+        .zone-text {
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1s;
+            letter-spacing: 2px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scanning Line */
+        .scanner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-color);
+            box-shadow: 0 0 20px var(--primary-glow);
+            z-index: 5;
+            animation: scan 3s infinite linear;
+        }
+
+        @keyframes scan {
+            0% {
+                top: -10%;
+            }
+
+            100% {
+                top: 110%;
+            }
+        }
+
+        /* Pulsing Background Grid */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background-image:
+                linear-gradient(rgba(255, 62, 62, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 62, 62, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: rotateX(60deg) translateZ(-100px) translateY(-50%);
+            z-index: 1;
+            animation: grid-move 20s infinite linear;
+        }
+
+        @keyframes grid-move {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 0 500px;
+            }
+        }
+
+        .btn-return {
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1.5s;
+        }
+
+        /* Heartbeat Line */
+        .heartbeat {
+            position: fixed;
+            bottom: 50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            z-index: 2;
+            opacity: 0.3;
+        }
+
+        .heartbeat svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .heartbeat .path {
+            stroke: var(--primary-color);
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 5s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-grid"></div>
+    <div class="scanner"></div>
+
+    <div class="lost-container">
+        <h1 class="glitch" data-text="OUT OF BOUNDS">OUT OF BOUNDS</h1>
+        <p class="zone-text">SENSORS INDICATE YOU'VE DRIFTED FROM THE PATH.<br>RE-CALIBRATING HEART RATE...</p>
+
+        <div class="btn-return">
+            <a href="../index.html" class="btn btn-primary">RESTORE TRANSMISSION</a>
+        </div>
+    </div>
+
+    <div class="heartbeat">
+        <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
+            <path class="path" d="M0,50 L200,50 L220,20 L240,80 L260,20 L280,80 L300,50 L1000,50" />
+        </svg>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - SPARTAN EDGE</title>
+    <link rel="icon" type="image/jpeg" href="../Asset/box img.jpg">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="inner-body">
+    <div class="auth-page">
+        <div class="auth-bg-animation"></div>
+        <div class="auth-container animate-scale">
+            <div class="auth-header" style="margin-bottom: 20px;">
+                <div class="auth-logo" style="margin-bottom: 15px;">
+                    <a href="../index.html" class="logo">SPARTAN<span>ADMIN</span></a>
+                </div>
+
+                <!-- Admin Warrior Face (Different Colors) -->
+                <div class="warrior-face">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 5 L20 20 L20 50 C20 75 50 95 50 95 C50 95 80 75 80 50 L80 20 L50 5Z" fill="#222" />
+                        <path d="M35 35 L65 35 L65 75 L55 75 L55 45 L45 45 L45 75 L35 75 Z" fill="#D32F2F"
+                            opacity="0.9" />
+                        <path d="M50 5 L50 25 M30 15 L35 25 M70 15 L65 25" stroke="#fff" stroke-width="2" />
+                    </svg>
+                    <div class="eye left">
+                        <div class="pupil" style="background: var(--primary-color);"></div>
+                    </div>
+                    <div class="eye right">
+                        <div class="pupil" style="background: var(--primary-color);"></div>
+                    </div>
+                </div>
+
+                <h1 style="font-size: 2.2rem; margin-bottom: 5px;">Admin Portal</h1>
+                <p style="color: var(--text-gray); font-size: 0.9rem;">Command center authorization required.</p>
+            </div>
+
+            <form class="auth-form" id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminEmail">Admin Credential (Email)</label>
+                    <input type="email" id="adminEmail" class="form-control" placeholder="admin@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Security Key</label>
+                    <input type="password" id="adminPassword" class="form-control" placeholder="••••••••" required>
+                    <i class="fas fa-eye password-toggle" id="toggleAdminPassword"></i>
+                </div>
+
+                <div id="errorMsg"
+                    style="color: var(--primary-color); font-size: 0.9rem; margin-top: 10px; display: none; text-align: center; background: rgba(211, 47, 47, 0.1); padding: 10px; border-radius: 5px;">
+                    <i class="fas fa-exclamation-triangle"></i> Invalid admin credentials
+                </div>
+
+                <button type="submit" class="btn btn-primary"
+                    style="width: 100%; height: 50px; font-size: 1.1rem; margin-top: 20px; background-color: #222; border-color: var(--primary-color); color: var(--primary-color);">Authorize
+                    Entry</button>
+            </form>
+
+            <div class="auth-footer">
+                <p><a href="login.html" style="color: var(--text-gray); font-size: 0.9rem;"><i
+                            class="fas fa-chevron-left"></i> Back to selection</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Eye Tracking Logic -->
+    <script>
+        const leftEyePupil = document.querySelector('.eye.left .pupil');
+        const rightEyePupil = document.querySelector('.eye.right .pupil');
+
+        document.addEventListener('mousemove', (e) => {
+            const movePupil = (pupil, eyeX, eyeY) => {
+                const angle = Math.atan2(e.clientY - eyeY, e.clientX - eyeX);
+                const distance = 4; // Max movement distance
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
+                pupil.style.transform = `translate(${x}px, ${y}px)`;
+            };
+
+            const leftRect = leftEyePupil.parentElement.getBoundingClientRect();
+            const rightRect = rightEyePupil.parentElement.getBoundingClientRect();
+
+            movePupil(leftEyePupil, leftRect.left + leftRect.width / 2, leftRect.top + leftRect.height / 2);
+            movePupil(rightEyePupil, rightRect.left + rightRect.width / 2, rightRect.top + rightRect.height / 2);
+        });
+
+        // Toggle Password Visibility
+        const toggleAdminPassword = document.querySelector('#toggleAdminPassword');
+        const adminPasswordInput = document.querySelector('#adminPassword');
+
+        toggleAdminPassword.addEventListener('click', function () {
+            const type = adminPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            adminPasswordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Admin Auth
+        document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (email === 'admin@gmail.com' && password === 'admin123') {
+                const adminData = {
+                    name: "Supreme Commander",
+                    email: email,
+                    role: "admin",
+                    authorized_at: new Date().toISOString()
+                };
+                localStorage.setItem('spartan_admin', JSON.stringify(adminData));
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                errorMsg.style.display = 'block';
+                // Shake effect on form
+                const container = document.querySelector('.auth-container');
+                container.style.animation = 'none';
+                container.offsetHeight; // trigger reflow
+                container.style.animation = 'shake 0.5s';
+            }
+        });
+    </script>
+    <style>
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
+        }
+    </style>
+</body>
+
+</html>

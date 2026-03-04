@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | SPARTAN EDGE</title>
+    <link rel="icon" type="image/jpeg" href="../Asset/box img.jpg">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --sidebar-width: 260px;
+        }
+
+        body {
+            background-color: #050505;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: #0a0a0a;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 30px 20px;
+            border-right: 1px solid rgba(255, 62, 62, 0.1);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Centered for logo */
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .hamburger-close {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            position: absolute;
+            right: 0;
+        }
+
+        .hamburger-close span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-close.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger-close.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-close.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .sidebar-logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin: 0;
+            flex: 1;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            user-select: none;
+            text-decoration: none;
+        }
+
+        .sidebar-logo:hover {
+            color: var(--primary-color);
+        }
+
+        .sidebar-logo span {
+            color: var(--primary-color);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 20px;
+            border-radius: 10px;
+            color: #d1d1d1;
+            /* Better contrast */
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s var(--timing-bold);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(255, 62, 62, 0.15);
+            color: #ffffff;
+            transform: translateX(5px);
+        }
+
+        .sidebar-link.active {
+            background: rgba(255, 62, 62, 0.2);
+            color: var(--primary-color);
+            border-left: 4px solid var(--primary-color);
+            padding-left: 16px;
+            box-shadow: 0 4px 15px rgba(255, 62, 62, 0.1);
+        }
+
+        /* Main Content */
+        .admin-main {
+            margin-left: var(--sidebar-width);
+            padding: 40px;
+            min-height: 100vh;
+            width: calc(100% - var(--sidebar-width));
+            max-width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .admin-hamburger {
+            display: none;
+            font-size: 1.8rem;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        /* Stats Grid */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: #1a1a1a;
+            /* Match other dashboard cards */
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: #222;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 5rem;
+            opacity: 0.03;
+            color: #fff;
+        }
+
+        .stat-card.users::after {
+            content: '\f0c0';
+        }
+
+        .stat-card.bookings::after {
+            content: '\f073';
+        }
+
+        .stat-card.revenue::after {
+            content: '\f155';
+        }
+
+        .stat-card.trainers::after {
+            content: '\f44b';
+        }
+
+        .stat-card h4 {
+            color: #d1d1d1;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: var(--font-heading);
+        }
+
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-family: var(--font-heading);
+            color: #ffffff;
+            /* Explicit high contrast */
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Table Area */
+        .table-section {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .table-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            text-align: left;
+            padding: 18px 15px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .admin-table th {
+            color: var(--primary-color);
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .admin-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .status-pill {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .status-pending {
+            background: rgba(255, 193, 7, 0.1);
+            color: #FFC107;
+        }
+
+        .status-expired {
+            background: rgba(244, 67, 54, 0.1);
+            color: #F44336;
+        }
+
+        /* Mobile Menu */
+        .admin-hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        #sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            transition: all 0.4s ease;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .sidebar-header {
+                flex-direction: column;
+                gap: 20px;
+                border-bottom: 1px solid rgba(255, 62, 62, 0.1);
+                padding-bottom: 20px;
+            }
+
+            .hamburger-close {
+                display: flex !important;
+            }
+
+            .admin-main {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .admin-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .admin-hamburger {
+                display: block;
+            }
+
+            #sidebar-overlay.active {
+                display: block;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .admin-header>div:last-child {
+                text-align: left !important;
+                width: 100%;
+            }
+        }
+
+        /* Tabs Mock */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="sidebar-overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <a href="../index.html" class="sidebar-logo">SPARTAN<span>ADMIN</span></a>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a onclick="switchPanel('dashboard')" class="sidebar-link active" id="link-dashboard"><i
+                        class="fas fa-chart-line"></i> Dashboard</a></li>
+            <li><a onclick="switchPanel('members')" class="sidebar-link" id="link-members"><i class="fas fa-users"></i>
+                    Members</a></li>
+            <li><a onclick="switchPanel('plans')" class="sidebar-link" id="link-plans"><i
+                        class="fas fa-file-invoice"></i> Plans</a></li>
+            <li><a onclick="switchPanel('attendance')" class="sidebar-link" id="link-attendance"><i
+                        class="fas fa-calendar-check"></i> Attendance</a></li>
+            <li><a onclick="switchPanel('payments')" class="sidebar-link" id="link-payments"><i
+                        class="fas fa-money-bill-wave"></i> Payments</a></li>
+            <li><a onclick="switchPanel('trainers')" class="sidebar-link" id="link-trainers"><i
+                        class="fas fa-user-ninja"></i> Trainers</a></li>
+            <li><a onclick="switchPanel('reports')" class="sidebar-link" id="link-reports"><i
+                        class="fas fa-file-contract"></i> Reports</a></li>
+            <li><a onclick="switchPanel('settings')" class="sidebar-link" id="link-settings"><i class="fas fa-cog"></i>
+                    Settings</a></li>
+            <li style="margin-top: 50px;">
+                <a href="admin-login.html" class="sidebar-link" onclick="logoutAdmin()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="admin-main">
+        <div class="admin-header">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="admin-hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+                <div>
+                    <h1 style="font-family: var(--font-heading); font-size: 2.5rem; margin: 0; color: #ffffff;"
+                        id="panelTitle">COMMAND
+                        CENTER</h1>
+                    <p style="color: var(--primary-color); margin: 0; font-weight: 500;">Operational awareness &
+                        control.</p>
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <div id="currentTime"
+                    style="color: var(--primary-color); font-family: var(--font-heading); font-size: 1.5rem;"></div>
+                <div style="color: var(--text-gray); font-size: 0.8rem;"><i class="fas fa-circle"
+                        style="color: #4CAF50; font-size: 0.6rem;"></i> SECURE CONNECTION</div>
+            </div>
+        </div>
+
+        <!-- Dashboard View -->
+        <div id="dashboard-view" class="tab-content active">
+            <div class="stats-row">
+                <div class="stat-card users">
+                    <h4>Total Warriors</h4>
+                    <div class="number" id="totalUsers">0</div>
+                </div>
+                <div class="stat-card bookings">
+                    <h4>Active Sessions</h4>
+                    <div class="number" id="totalSessions">0</div>
+                </div>
+                <div class="stat-card revenue">
+                    <h4>Revenue (MTD)</h4>
+                    <div class="number">$12,450</div>
+                </div>
+                <div class="stat-card trainers">
+                    <h4>Staff On-Duty</h4>
+                    <div class="number">8</div>
+                </div>
+            </div>
+
+            <div class="admin-grid">
+                <div class="table-section" style="padding: 20px;">
+                    <canvas id="revenueChart" height="150"></canvas>
+                </div>
+                <div class="table-section">
+                    <h3 class="table-title"><i class="fas fa-bell"></i> System Logs</h3>
+                    <div style="margin-top: 15px;">
+                        <div
+                            style="border-left: 3px solid var(--primary-color); background: rgba(255,255,255,0.05); padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 15px;">
+                            <p style="font-size: 0.95rem; margin:0; color: #fff;">New member registration: <strong>John
+                                    Wick</strong>
+                            </p>
+                            <small style="color: #888;">2 mins ago</small>
+                        </div>
+                        <div
+                            style="border-left: 3px solid #666; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 15px;">
+                            <p style="font-size: 0.95rem; margin:0; color: #d1d1d1;">System backup completed</p>
+                            <small style="color: #777;">1 hour ago</small>
+                        </div>
+                        <div
+                            style="border-left: 3px solid #FFC107; background: rgba(255,193,7,0.05); padding: 15px; border-radius: 0 8px 8px 0;">
+                            <p style="font-size: 0.95rem; margin:0; color: #fff;">Maintenance scheduled for Sunday</p>
+                            <small style="color: #888;">4 hours ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generic Table View for other panels -->
+        <div id="table-view" class="tab-content">
+            <div class="table-section">
+                <div class="table-header">
+                    <h3 class="table-title" id="viewTitle"><i class="fas fa-users"></i> Member Management</h3>
+                    <div style="display: flex; gap: 10px;">
+                        <button
+                            style="background: #222; border: 1px solid #444; color: white; padding: 8px 15px; border-radius: 5px; cursor: pointer;"><i
+                                class="fas fa-download"></i> Export</button>
+                        <button
+                            style="background: var(--primary-color); border: none; color: white; padding: 8px 15px; border-radius: 5px; cursor: pointer;"><i
+                                class="fas fa-plus"></i> Add New</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead id="tableHead">
+                            <!-- Dynamic -->
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Dynamic -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Auth Guard
+        const checkAdminAuth = () => {
+            const admin = JSON.parse(localStorage.getItem('spartan_admin'));
+            if (!admin) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+        };
+
+        const logoutAdmin = () => {
+            localStorage.removeItem('spartan_admin');
+            window.location.href = 'admin-login.html';
+        };
+
+        const switchPanel = (panel) => {
+            const views = ['dashboard', 'members', 'plans', 'attendance', 'payments', 'trainers', 'reports', 'settings'];
+            const panelTitle = document.getElementById('panelTitle');
+            const dashboardView = document.getElementById('dashboard-view');
+            const tableView = document.getElementById('table-view');
+            const viewTitle = document.getElementById('viewTitle');
+
+            // Update Links
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            const activeLink = document.getElementById(`link-${panel}`);
+            if (activeLink) activeLink.classList.add('active');
+
+            if (panel === 'dashboard') {
+                panelTitle.textContent = "COMMAND CENTER";
+                dashboardView.classList.add('active');
+                tableView.classList.remove('active');
+            } else {
+                panelTitle.textContent = panel.toUpperCase();
+                dashboardView.classList.remove('active');
+                tableView.classList.add('active');
+                viewTitle.innerHTML = `<i class="fas fa-${getIcon(panel)}"></i> ${panel.charAt(0).toUpperCase() + panel.slice(1)} Management`;
+                loadTableData(panel);
+            }
+
+            // Close mobile sidebar
+            if (window.innerWidth <= 992) {
+                closeAdminSidebar();
+            }
+
+            // Scroll top
+            window.scrollTo(0, 0);
+        };
+
+        const getIcon = (panel) => {
+            const icons = {
+                members: 'users',
+                plans: 'file-invoice',
+                attendance: 'calendar-check',
+                payments: 'money-bill-wave',
+                trainers: 'user-ninja',
+                reports: 'file-contract',
+                settings: 'cog'
+            };
+            return icons[panel] || 'circle';
+        };
+
+        const loadTableData = (panel) => {
+            const head = document.getElementById('tableHead');
+            const body = document.getElementById('tableBody');
+
+            if (panel === 'members') {
+                const users = JSON.parse(localStorage.getItem('spartan_all_users') || '[]');
+                head.innerHTML = `<tr><th>Warrior</th><th>Joined</th><th>Plan</th><th>Status</th><th>Actions</th></tr>`;
+                if (users.length === 0) {
+                    body.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 40px;">No records found.</td></tr>`;
+                } else {
+                    body.innerHTML = users.map(u => `
+                        <tr>
+                            <td><strong>${u.name}</strong><br><small style="color:var(--text-gray)">${u.email}</small></td>
+                            <td>${u.joined}</td>
+                            <td>Silver Protocol</td>
+                            <td><span class="status-pill status-active">Active</span></td>
+                            <td><button style="background:none; border:none; color:var(--text-gray); cursor:pointer;"><i class="fas fa-edit"></i></button></td>
+                        </tr>
+                    `).join('');
+                }
+            } else {
+                head.innerHTML = `<tr><th>Unit ID</th><th>Description</th><th>Timestamp</th><th>Status</th><th>Priority</th></tr>`;
+                body.innerHTML = `
+                    <tr><td>#9281</td><td>Operational Task: ${panel} sync</td><td>Just now</td><td><span class="status-pill status-pending">Pending</span></td><td>High</td></tr>
+                    <tr><td>#9280</td><td>Legacy record migration</td><td>2 hours ago</td><td><span class="status-pill status-active">Done</span></td><td>Normal</td></tr>
+                `;
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAdminAuth();
+
+            // Clock
+            setInterval(() => {
+                document.getElementById('currentTime').textContent = new Date().toLocaleTimeString();
+            }, 1000);
+
+            // Hamburger
+            const ham = document.getElementById('hamburger');
+            const hamClose = document.getElementById('hamburger-close');
+            const side = document.getElementById('adminSidebar');
+            const over = document.getElementById('sidebar-overlay');
+            const hamIcon = ham.querySelector('i');
+
+            const openAdminSidebar = () => {
+                side.classList.add('active');
+                over.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeAdminSidebar = () => {
+                side.classList.remove('active');
+                over.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            ham.addEventListener('click', openAdminSidebar);
+            hamClose.addEventListener('click', closeAdminSidebar);
+            over.addEventListener('click', closeAdminSidebar);
+
+            // Export to global for switchPanel
+            window.closeAdminSidebar = closeAdminSidebar;
+
+            // Counters
+            const users = JSON.parse(localStorage.getItem('spartan_all_users') || '[]');
+            document.getElementById('totalUsers').textContent = users.length + 142; // Base + real
+            document.getElementById('totalSessions').textContent = 12;
+
+            // Chart
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Revenue ($)',
+                        data: [5000, 7500, 6000, 9500, 11000, 12450],
+                        borderColor: '#D32F2F',
+                        backgroundColor: 'rgba(211, 47, 47, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#666' } },
+                        x: { grid: { display: false }, ticks: { color: '#666' } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
